@@ -1,0 +1,9 @@
+baseURL = "https://localhost:1313"
+languageCode = "en-us"
+title = "Projet rallye"
+theme = "hugo-theme-dimension-master"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

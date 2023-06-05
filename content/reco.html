@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Interface utilisateur</title>
+    <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+}
+
+#centralwidget {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+.button {
+  position: absolute;
+  font-size: 14px;
+  padding: 10px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+#pushButton {
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#pushButton_2 {
+  top: 100px;
+  left: calc(50% + 80px);
+  transform: translateX(-50%);
+}
+
+#pushButton_5 {
+  top: calc(50% - 50px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#pushButton_6 {
+  top: calc(50% - 50px);
+  left: calc(50% + 80px);
+  transform: translateX(-50%);
+}
+
+#pushButton_7 {
+  top: 50px;
+  right: 50px;
+}
+
+#pushButton_8 {
+  bottom: 20px;
+  right: 20px;
+}
+
+#textEdit {
+  position: absolute;
+  top: 124px;
+  left: calc(50% + 120px);
+  width: 250px;
+  height: 341px;
+  resize: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#label {
+  position: absolute;
+  top: 50px;
+  left: calc(50% + 120px);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dialog h2 {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+    </style>
+</head>
+<body>
+    <div id="centralwidget">
+        <button class="button" id="pushButton">commencer</button>
+        <button class="button" id="pushButton_2">arrêter</button>
+        <button class="button" id="pushButton_5">enregistrer</button>
+        <button class="button" id="pushButton_6">charger</button>
+        <button class="button" id="pushButton_7">quitter</button>
+        <button class="button" id="pushButton_8">retour</button>
+        <textarea id="textEdit"></textarea>
+        <label id="label">mode reconnaissance</label>
+    </div>
+    <script>
+        // Récupération des éléments HTML
+const pushButton = document.getElementById("pushButton");
+const pushButton2 = document.getElementById("pushButton_2");
+const pushButton5 = document.getElementById("pushButton_5");
+const pushButton6 = document.getElementById("pushButton_6");
+const pushButton7 = document.getElementById("pushButton_7");
+const pushButton8 = document.getElementById("pushButton_8");
+const textEdit = document.getElementById("textEdit");
+const label = document.getElementById("label");
+
+// Fonction pour le bouton "commencer"
+pushButton.addEventListener("click", function() {
+    label.innerHTML = "Mode reconnaissance en cours...";
+});
+
+// Fonction pour le bouton "arrêter"
+pushButton2.addEventListener("click", function() {
+    label.innerHTML = "Mode reconnaissance arrêté.";
+});
+
+// Fonction pour le bouton "enregistrer"
+pushButton5.addEventListener("click", function() {
+    const text = textEdit.value;
+    const fileNameInput = document.createElement("input");
+    fileNameInput.type = "text";
+    fileNameInput.value = "mon_fichier.txt";
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Enregistrer";
+    saveButton.onclick = function() {
+        const fileName = fileNameInput.value;
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        a.click();
+        document.body.removeChild(container);
+    };
+    const container = document.createElement("div");
+    container.appendChild(fileNameInput);
+    container.appendChild(saveButton);
+    container.style.position = "absolute";
+    container.style.top = "50%";
+    container.style.left = "50%";
+    container.style.transform = "translate(-50%, -50%)";
+    container.style.backgroundColor = "white";
+    container.style.padding = "20px";
+    container.style.borderRadius = "5px";
+    container.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+    document.body.appendChild(container);
+});
+
+// Fonction pour le bouton "charger"
+pushButton6.addEventListener("click", function() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "text/plain";
+    input.onchange = function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const text = event.target.result;
+            textEdit.value = text;
+            alert("Chargement terminé !");
+        };
+        reader.readAsText(file);
+    };
+    input.click();
+});
+
+// Fonction pour le bouton "quitter"
+pushButton7.addEventListener("click", function() {
+    if(confirm("Êtes-vous sûr de vouloir quitter ?")) {
+        window.close();
+    }
+});
+
+// Fonction pour le bouton "retour"
+pushButton8.addEventListener("click", function() {
+    history.back();
+});
+    </script>
+</body>
+</html>

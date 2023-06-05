@@ -1,0 +1,31 @@
+{
+  "name": "nfd",
+  "version": "1.0.0",
+  "description": "NeckFire Desktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron/electron.exe . | hugo.exe server -D",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neckfire/NFD.git"
+  },
+  "keywords": [
+    "desktop",
+    "free",
+    "linux",
+    "nft"
+  ],
+  "author": "Neckfire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neckfire/NFD/issues"
+  },
+  "homepage": "https://github.com/neckfire/NFD#readme",
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "noble": "^1.9.1",
+    "web-bluetooth": "^0.1.2"
+  }
+}
